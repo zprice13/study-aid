@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Aid</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <!-- ======== Sidebar: courses ======== -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>📚 Study Aid</h1>
+        <button id="settingsBtn" class="icon-btn" title="Settings">⚙️</button>
+      </div>
+
+      <div class="course-list" id="courseList"></div>
+
+      <form id="newCourseForm" class="new-course-form">
+        <input type="text" id="newCourseName" placeholder="New course name…" maxlength="60" required>
+        <button type="submit" class="btn btn-primary btn-sm">Add</button>
+      </form>
+
+      <div class="sidebar-footer">
+        <button id="exportBtn" class="btn btn-ghost btn-sm">Export data</button>
+        <label class="btn btn-ghost btn-sm" for="importInput">Import data</label>
+        <input type="file" id="importInput" accept=".json" hidden>
+      </div>
+    </aside>
+
+    <!-- ======== Main area ======== -->
+    <main class="main">
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon">🎓</div>
+        <h2>Welcome to your Study Aid</h2>
+        <p>Create a course in the sidebar, upload your notes or readings,<br>
+           and generate multiple-choice quizzes and flashcards to review.</p>
+      </div>
+
+      <div id="courseView" class="course-view" hidden>
+        <header class="course-header">
+          <h2 id="courseTitle"></h2>
+          <div class="course-header-actions">
+            <span id="courseStats" class="course-stats"></span>
+            <button id="renameCourseBtn" class="btn btn-ghost btn-sm">Rename</button>
+            <button id="deleteCourseBtn" class="btn btn-danger btn-sm">Delete course</button>
+          </div>
+        </header>
+
+        <nav class="tabs">
+          <button class="tab active" data-tab="materials">📄 Materials</button>
+          <button class="tab" data-tab="generate">✨ Generate</button>
+          <button class="tab" data-tab="quizzes">❓ Quizzes</button>
+          <button class="tab" data-tab="flashcards">🃏 Flashcards</button>
+        </nav>
+
+        <!-- ---- Materials tab ---- -->
+        <section id="tab-materials" class="tab-panel active">
+          <div class="panel-intro">Upload course content — lecture notes, readings, slides text —
+            then head to <strong>Generate</strong> to turn it into practice material.</div>
+
+          <div class="upload-row">
+            <label class="dropzone" id="dropzone">
+              <input type="file" id="fileInput" accept=".txt,.md,.markdown,.pdf,.csv,.json,.html" multiple hidden>
+              <span class="dropzone-icon">📎</span>
+              <span><strong>Click to upload</strong> or drag files here</span>
+              <span class="dropzone-hint">.txt, .md, .pdf and other text files</span>
+            </label>
+          </div>
+
+          <details class="paste-details">
+            <summary>Or paste text directly</summary>
+            <input type="text" id="pasteTitle" placeholder="Title (e.g. 'Week 3 lecture notes')" maxlength="80">
+            <textarea id="pasteText" rows="8" placeholder="Paste lecture notes, textbook excerpts, study guides…"></textarea>
+            <button id="pasteSaveBtn" class="btn btn-primary btn-sm">Save material</button>
+          </details>
+
+          <div id="materialList" class="material-list"></div>
+        </section>
+
+        <!-- ---- Generate tab ---- -->
+        <section id="tab-generate" class="tab-panel">
+          <div class="panel-intro">Pick materials and let Claude create study aids from them.</div>
+
+          <div class="gen-card">
+            <h3>Source materials</h3>
+            <div id="genMaterialPicker" class="gen-material-picker"></div>
+
+            <h3>Options</h3>
+            <div class="gen-options">
+              <label>Type
+                <select id="genType">
+                  <option value="quiz">Multiple-choice quiz</option>
+                  <option value="flashcards">Flashcards</option>
+                  <option value="both">Both</option>
+                </select>
+              </label>
+              <label>Number of items
+                <select id="genCount">
+                  <option>5</option><option selected>10</option><option>15</option>
+                  <option>20</option><option>25</option>
+                </select>
+              </label>
+              <label>Difficulty
+                <select id="genDifficulty">
+                  <option value="mixed" selected>Mixed</option>
+                  <option value="introductory">Introductory</option>
+                  <option value="challenging">Challenging</option>
+                </select>
+              </label>
+            </div>
+            <label class="gen-focus">Focus (optional)
+              <input type="text" id="genFocus" placeholder="e.g. 'photosynthesis light reactions' — leave blank to cover everything">
+            </label>
+
+            <button id="generateBtn" class="btn btn-primary">✨ Generate</button>
+            <div id="genStatus" class="gen-status" hidden></div>
+          </div>
+        </section>
+
+        <!-- ---- Quizzes tab ---- -->
+        <section id="tab-quizzes" class="tab-panel">
+          <div id="quizList" class="set-list"></div>
+          <div id="quizPlayer" class="quiz-player" hidden></div>
+        </section>
+
+        <!-- ---- Flashcards tab ---- -->
+        <section id="tab-flashcards" class="tab-panel">
+          <div id="deckList" class="set-list"></div>
+          <div id="deckPlayer" class="deck-player" hidden></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- ======== Settings modal ======== -->
+  <dialog id="settingsModal" class="modal">
+    <h2>Settings</h2>
+    <p class="modal-note">
+      Generation uses the Claude API directly from your browser. Your key is stored
+      only in this browser's local storage and sent only to <code>api.anthropic.com</code>.
+      Get a key at <a href="https://platform.claude.com/" target="_blank" rel="noopener">platform.claude.com</a>.
+    </p>
+    <label>Anthropic API key
+      <input type="password" id="apiKeyInput" placeholder="sk-ant-…" autocomplete="off">
+    </label>
+    <div class="modal-actions">
+      <button id="settingsCancelBtn" class="btn btn-ghost">Cancel</button>
+      <button id="settingsSaveBtn" class="btn btn-primary">Save</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
