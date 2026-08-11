@@ -139,9 +139,15 @@
   <dialog id="settingsModal" class="modal">
     <h2>Settings</h2>
     <p class="modal-note">
-      Generation uses the Claude API directly from your browser. Your key is stored
-      only in this browser's local storage and sent only to <code>api.anthropic.com</code>.
-      Get a key at <a href="https://platform.claude.com/" target="_blank" rel="noopener">platform.claude.com</a>.
+      <strong>An API key is optional.</strong> You only need one if you want the
+      ✨ Generate tab to create new quizzes and flashcards in-app — studying
+      imported or pre-made content works fine without it.
+    </p>
+    <p class="modal-note">
+      Keys come from <a href="https://platform.claude.com/" target="_blank" rel="noopener">platform.claude.com</a>
+      (the API is separate from a Claude.ai subscription and billed per use —
+      generating a quiz typically costs a few cents). Your key is stored only in
+      this browser's local storage and sent only to <code>api.anthropic.com</code>.
     </p>
     <label>Anthropic API key
       <input type="password" id="apiKeyInput" placeholder="sk-ant-…" autocomplete="off">
