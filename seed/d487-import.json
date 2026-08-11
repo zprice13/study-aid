@@ -1,0 +1,516 @@
+{
+  "courses": [
+    {
+      "id": "d4870000",
+      "name": "D487 – Secure Software Design",
+      "color": "#2b6cb0",
+      "materials": [
+        {
+          "id": "d4870001",
+          "name": "D487 Anki deck (imported Q&A)",
+          "text": "Q: A1 activity: What is a Privacy Impact Assessment (PIA) and when is it initiated?\nA: The PIA is a process that evaluates the privacy issues and assigns a privacy impact rating related to the personally identifiable information (PII) the software handles. It is initiated during the A1 (Security Assessment) phase so privacy is addressed from the start rather than neglected.\n\nQ: A1 activity: What is the SDL project plan created during Security Assessment?\nA: The software security team creates an SDL project plan that lays out the security milestones, controls, and activities for the product and integrates them into the overall development project schedule, so security work is planned alongside (not separate from) normal development.\n\nQ: A1 activity: What is the purpose of the discovery (kick-off) meeting hosted by the software security team?\nA: It is a formalized kick-off meeting (in person or via live web conference) that ensures security is treated as a key element built into the SDLC. It gives attendees and stakeholders a chance to gauge shared understanding and awareness, identify all sources of security requirements (including relevant laws, regulations, and standards), and begin risk management planning.\n\nQ: A1 activity: Why is the software security team \"looped in early,\" and what benefit does this provide?\nA: Bringing the security team into the project early is the most cost-effective way to enable risk identification, planning, and mitigation. Early identification of vulnerabilities and misconfigurations lowers the cost of security controls, surfaces engineering challenges sooner, and lets developers plan security requirements and constraints into the project from the start.\n\nQ: A2 activity: How are business/security requirements defined during the Architecture phase?\nA: Business requirements are defined in terms of the security properties confidentiality, integrity, and availability (CIA). Needed privacy controls for creating, transmitting, and handling PII are also identified, along with SDL policy and other security/privacy compliance requirements.\n\nQ: A2 activity: What key deliverable is produced during the Architecture (A2) phase?\nA: A threat model is prepared during A2. At this stage security is viewed in terms of business risks, using inputs from the software security group and discussions with key stakeholders to identify threats and constraints before design work proceeds.\n\nQ: A3 activity: What security review and analysis activities happen in Design and Development (A3)?\nA: In A3 the team analyzes policy compliance, creates test plan documentation, updates the threat model if necessary, conducts a design security analysis and review, and performs a privacy implementation assessment. Static analysis of source code begins in this phase to catch issues early.\n\nQ: A4 activity: What is the difference between static and dynamic analysis, and where are they used in the SDL?\nA: Static analysis examines the source code before it is compiled (no execution), providing a scalable way to find issues early. Dynamic analysis tests the running application to find issues that appear at runtime. The A4 (readiness) phase uses automated static, dynamic, and fuzz testing tools to execute security test cases and enforce security practices efficiently.\n\nQ: A5 activity: What final testing and review activities occur before a product ships?\nA: Before shipping, A5 includes a final policy compliance review, a final vulnerability scan, pre-release penetration testing, an open-source licensing review, and the final security and privacy reviews, all confirming the software is secure enough to release.\n\nQ: A5 activity: What is the role of the final SDL policy compliance review at the Ship phase?\nA: SDL policy compliance covers every project with meaningful security and privacy risk and is analyzed and updated in each phase (A1-A4). In A5 the SDL policy is reviewed one final time to confirm it provides specific requirements appropriate to the product type, code type, and platform before release.\n\nQ: According to the reference framework, what are the top four environments in which you are likely to deploy your SDL?\nA: Agile, DevOps (and DevSecOps), Cloud, and Microservices/APIs. The book stresses that what matters is understanding what your specific implementation means for your SDL, not exactly how each methodology is implemented.\n\nQ: For whom is BSIMM primarily intended?\nA: It is aimed at the people responsible for teaching developers how to do proper software security (e.g., a Software Security Group), emphasizing security education and mentoring rather than policing developers for errors, rather than being a guide for developers themselves.\n\nQ: How does the V-Model relate to the Waterfall methodology?\nA: The V-Model follows Waterfall's sequential flow but turns back upward after the coding process, pairing each development stage with a corresponding testing stage.\n\nQ: How does the book recommend organizing (right-sizing) the software security group for post-release support?\nA: It recommends a matrixed structure: a core group of senior software security architects who have 'dotted-line' relationships with software security champions, who in turn work with software security evangelists, plus strong ties to the product managers of each Tier 1 product. This is a more cost-effective, efficient way to implement and operate the SDL with existing resources.\n\nQ: How is the BSIMM model organized?\nA: BSIMM is divided into 12 practices grouped under four domains: Governance, Intelligence, SSDL (Secure Software Development Lifecycle) Touchpoints, and Deployment.\n\nQ: In PRSA1 (External Vulnerability Disclosure Response), what team handles the process and what scoring system is used to prioritize issues?\nA: The PSIRT (Product Security Incident Response Team) handles it, managing investigation of publicly discovered vulnerabilities. Issues are prioritized by severity using the CVSS scoring system (plus environmental factors).\n\nQ: In PRSA1, how does the PSIRT publicly disclose a resolved vulnerability, and what is expected of the discoverer meanwhile?\nA: Public disclosure is done via a coordinated 'security bulletin (SB)' published on the company's website. The discoverer is asked to maintain strict confidentiality until complete resolutions are available for customers and published.\n\nQ: In PRSA1, why is a single group as the focal point for customer security communications so important?\nA: A clearly defined single chain of communication (rather than multiple groups like support, sales, and infosec all talking to customers) prevents disclosure of unintended information, avoids panic, and reduces the risk of putting entire accounts at stake.\n\nQ: In a maturity model like SAMM or BSIMM, what is a security roadmap?\nA: A roadmap is a series of phases in which selected practices are each improved by one maturity level at a time. Organizations choose which practices to advance in each phase, iterating based on business drivers and risk tolerance, and adjust the roadmap after each phase based on what was actually accomplished.\n\nQ: List the five Post-Release Support Activities (PRSA1-PRSA5).\nA: PRSA1 = External Vulnerability Disclosure Response; PRSA2 = Third-Party Reviews; PRSA3 = Post-Release Certifications; PRSA4 = Internal Review for New Product Combinations or Cloud Deployments; PRSA5 = Security Architectural Reviews and Tool-Based Assessments of Current, Legacy, and M&A Products and Solutions.\n\nQ: Name four common software development methodologies covered in the course.\nA: Waterfall, V-Model, Agile, and Scrum.\n\nQ: PASTA - what is Stage 1?\nA: Stage 1: Define the Objectives - identify business objectives, security/compliance requirements, and perform a preliminary business impact analysis (BIA).\n\nQ: PASTA - what is Stage 2?\nA: Stage 2: Define the Technical Scope - define the boundaries of the technical environment and the dependencies (infrastructure, application components, software, network) that must be assessed.\n\nQ: PASTA - what is Stage 3?\nA: Stage 3: Application Decomposition - decompose the application to identify assets, use cases, data flows (e.g., data flow diagrams), trust boundaries, actors, and entry/exit points.\n\nQ: PASTA - what is Stage 4?\nA: Stage 4: Threat Analysis - analyze the threat landscape using threat intelligence to identify relevant threats and attack scenarios targeting the application.\n\nQ: PASTA - what is Stage 5?\nA: Stage 5: Vulnerability and Weakness Analysis - correlate identified threats with existing vulnerabilities and weaknesses in the application and its assets (mapping to CVEs/CWEs).\n\nQ: PASTA - what is Stage 6?\nA: Stage 6: Attack Modeling - simulate attacks (e.g., using attack trees/attack surface analysis) to validate how identified threats could exploit the vulnerabilities against the assets.\n\nQ: PASTA - what is Stage 7?\nA: Stage 7: Risk and Impact Analysis - quantify business risk and impact of validated attacks, then prioritize and recommend countermeasures/mitigations to reduce residual risk.\n\nQ: PRSA1's PSIRT function also covers what second post-release response area besides security vulnerabilities?\nA: Privacy issue response (section 8.2.2, Post-Release Privacy Response). The PSIRT function can be a shared responsibility covering responses to BOTH post-release security vulnerabilities and privacy issue discoveries.\n\nQ: STRIDE - what threat does 'D' represent, and what security property does it violate?\nA: D = Denial of Service (making a system or resource unavailable to legitimate users). It violates Availability.\n\nQ: STRIDE - what threat does 'E' represent, and what security property does it violate?\nA: E = Elevation of Privilege (gaining capabilities/access beyond what was granted, e.g., a normal user acting as admin). It violates Authorization.\n\nQ: STRIDE - what threat does 'I' represent, and what security property does it violate?\nA: I = Information Disclosure (exposing data to unauthorized parties). It violates Confidentiality.\n\nQ: STRIDE - what threat does 'R' represent, and what security property does it violate?\nA: R = Repudiation (denying having performed an action, with no way to prove otherwise). It violates Non-repudiation (undermines auditing/logging).\n\nQ: STRIDE - what threat does 'S' represent, and what security property does it violate?\nA: S = Spoofing (impersonating someone or something else, e.g., faking identity/credentials). It violates Authentication.\n\nQ: STRIDE - what threat does 'T' represent, and what security property does it violate?\nA: T = Tampering (unauthorized modification of data or code, in transit or at rest). It violates Integrity.\n\nQ: Under PRSA5, why must legacy code receive the same testing and review rigor as the SDL?\nA: Legacy code often predates modern SDL security activities, so its architecture may hide unpredictable vulnerabilities. Applying full SDL rigor mitigates 'the unexpected' - critical when legacy software supports embedded critical systems like infrastructure, transportation, defense, medicine, and finance, where the impact of changes cannot otherwise be predicted.\n\nQ: What activities make up the A5 (Ship) phase of the SDL?\nA: A5 is the final phase before release. It includes the final policy compliance review, a final vulnerability scan, pre-release penetration testing, an open-source licensing review, and the final security and privacy reviews to confirm the software is acceptable to ship.\n\nQ: What activities occur during the Ship (A5) phase of the SDL?\nA: In the last phase before release, security teams perform policy compliance analysis, vulnerability scans, penetration testing, open-source licensing reviews, and a final security review and privacy review to determine whether the product is ready to ship.\n\nQ: What activities occur in the A3 (Design and Development) phase of the SDL?\nA: In A3 you analyze policy compliance, create the test plan documentation, update the threat model if needed, conduct a design security analysis and review, and perform a privacy implementation assessment. Static analysis of source code begins here (and continues into A4) to detect and remove issues early.\n\nQ: What are the Post-Release Support Activities (PRSA) in the SDL, and who typically handles them?\nA: PRSA are the security activities that continue after a product ships. Many are carried out by groups other than the software security group, but the book frames them as the responsibility of the centralized software security group. There are five: PRSA1-PRSA5.\n\nQ: What are the five phases of the SDL (A1-A5) in the reference framework's model?\nA: A1 = Security Assessment (discovery); A2 = Architecture; A3 = Design and Development; A4 = Design and Development (readiness); A5 = Ship. A post-release phase (PRSA1-5, Post-Release Support Activities) follows after the product ships.\n\nQ: What are the main activities within the A1 (Security Assessment) phase?\nA: The software security team is looped in early, hosts a discovery meeting, creates an SDL project plan, and initiates a Privacy Impact Assessment (PIA) plan. Together these establish the product risk profile and the security work needed for the rest of the SDL.\n\nQ: What are the main types of security test cases?\nA: Testing the box, vulnerability assessment and penetration testing, scanning, ongoing testing, and environment testing.\n\nQ: What are the two leading SDL maturity models the reference framework highlights?\nA: OWASP's Software Assurance Maturity Model (SAMM) and Synopsys's Building Security In Maturity Model (BSIMM). Both let an organization assess and grow the maturity of its software security program over time.\n\nQ: What do secure software requirements primarily focus on?\nA: The confidentiality, integrity, and availability (CIA) of information within the product. They are a subset of the functional business requirements.\n\nQ: What does PASTA stand for and what type of threat modeling methodology is it?\nA: PASTA = Process for Attack Simulation and Threat Analysis. It is a risk-centric, seven-stage threat modeling methodology that aligns business objectives with technical requirements while accounting for compliance and business impact.\n\nQ: What does the STRIDE threat model acronym stand for (all 6)?\nA: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege. STRIDE is a threat classification model (originated at Microsoft) where each threat maps to a violated security property: Authentication, Integrity, Non-repudiation, Confidentiality, Availability, Authorization.\n\nQ: What does the software development life cycle (SDLC) provide in the context of software security?\nA: It standardizes security best practices across development, ensuring security is treated as an essential part of every phase rather than an afterthought.\n\nQ: What happens during the Architecture (A2) phase of the SDL, and what is its most important step?\nA: Security is examined in terms of business risks with input from the security team and key stakeholders. The most important step is threat modeling.\n\nQ: What happens in the A1 (Security Assessment) phase of the SDL, and what is it also called?\nA: A1 is the first SDL phase, sometimes called the discovery phase. The team identifies the product's risk profile and the SDL activities that will be needed, and creates an initial project outline of security milestones and controls that is integrated into the overall development schedule.\n\nQ: What happens in the A4 (Design and Development / readiness) phase, and how does it map to a typical SDLC?\nA: A4 maps to the 'readiness' phase of a typical SDLC. It continues policy compliance analysis and executes security test cases, relying on automated tools (static, dynamic, and fuzz testing) to enforce security practices efficiently. Static analysis inspects source code before compiling; dynamic analysis tests the running application.\n\nQ: What is BSIMM (Building Security In Maturity Model) and what is its purpose?\nA: BSIMM is a descriptive maturity model built from studying real-world software security initiatives across many organizations. It is not a how-to guide or a one-size-fits-all prescription; instead it lets an organization measure where it stands relative to industry peers and identify steps to improve its software security program.\n\nQ: What is BSIMM (Building Security In Maturity Model)?\nA: A descriptive security model based on studying real-world software security practices across many organizations, used to measure and compare an organization's software security initiative.\n\nQ: What is MITRE ATT&CK and how can it enhance threat modeling in the SDL?\nA: MITRE ATT&CK is a knowledge base of real-world adversary tactics and techniques (first released in 2015). In the SDL it supports vulnerability managers with detections and analytics, threat intelligence (a common language to structure and compare threats), adversary emulation and red teaming, and assessment and engineering decisions.\n\nQ: What is OWASP (Open Web Application Security Project)?\nA: A flexible, prescriptive framework and community that helps organizations build security into their software development process, offering guidance and resources for application security.\n\nQ: What is OWASP Zed Attack Proxy (ZAP)?\nA: One of the most commonly used open-source security testing tools, used to test web applications for vulnerabilities (e.g., request-response tampering, authentication scenarios, custom payloads).\n\nQ: What is PRSA1?\nA: PRSA1 is External Vulnerability Disclosure Response - the process for receiving, triaging, and responding to security vulnerabilities reported by external parties (researchers, customers) after release.\n\nQ: What is PRSA2 (Third-Party Reviews) and why has it become the norm?\nA: PRSA2 is independent third-party assessment of post-release (or near-release) code. Customers increasingly request independent audits as visible proof that purchased/evaluated software is secure, since vulnerabilities have been tied to high-profile data breaches.\n\nQ: What is PRSA2?\nA: PRSA2 is Third-Party Reviews - having independent, external parties assess the security of the released software (for example, third-party security assessments or audits) to provide objective validation.\n\nQ: What is PRSA3?\nA: PRSA3 is Post-Release Certifications - managing security/privacy certifications (e.g., government, industry, or standards-based) that a product must obtain or maintain after release.\n\nQ: What is PRSA4?\nA: PRSA4 is Internal Review for New Product Combinations or Cloud Deployments - re-assessing security when previously released products are combined into new bundles/solutions or deployed in new environments such as the cloud, where new risks may emerge.\n\nQ: What is PRSA5?\nA: PRSA5 is Security Architectural Reviews and Tool-Based Assessments of Current, Legacy, and M&A Products and Solutions - applying architectural review and automated tooling to existing, legacy, and newly acquired (merger/acquisition) code.\n\nQ: What is STRIDE, and what are STRIDE-per-element and STRIDE-per-interaction?\nA: STRIDE is a threat modeling methodology where each letter represents a type of software threat, applied to a data flow diagram. STRIDE-per-element identifies threats for individual elements; STRIDE-per-interaction identifies threats for interactions between elements.\n\nQ: What is Scrum in Agile development?\nA: A popular, flexible Agile framework for holistic product development in which a team works as a unit toward a common goal, with defined Scrum roles and values.\n\nQ: What is the PASTA threat modeling methodology and how does it differ from other methods?\nA: PASTA (Process for Attack Simulation and Threat Analysis) is a seven-step, repeatable framework for identifying threats and planning countermeasures. Unlike methods focused only on identifying threats, PASTA focuses on the probability and impact of threats, so teams prioritize those with real business impact.\n\nQ: What is the Waterfall software development methodology?\nA: A sequential, step-by-step process for addressing an organization's requirements, where each phase is completed before the next begins.\n\nQ: What is the defense-in-depth principle in secure software design?\nA: Applying multiple, layered security controls throughout the entire SDLC so that if one control fails, others still protect the software. It is emphasized across all phases of development.\n\nQ: What is the difference between quality code and secure code?\nA: Quality code focuses on functioning correctly and reliably, while secure code focuses on protecting confidentiality, integrity, and availability by resisting misuse and attack. Code can be high quality yet insecure.\n\nQ: What is the difference between static and dynamic code analysis?\nA: Static code analysis examines source code without executing it, while dynamic code analysis tests the application while it is running. Introducing both early in a CI/CD pipeline helps developers find issues sooner.\n\nQ: What is the focus of the A2 (Architecture) phase of the SDL?\nA: In A2, security is brought into the SDLC so that all threats, requirements, and constraints on functionality and integration are considered. Business requirements are defined in terms of confidentiality, integrity, and availability; privacy controls for PII are discussed; and a threat model is prepared.\n\nQ: What is the goal of the Design and Development (A3/A4) phase of the SDL?\nA: To complete analysis and testing that lets teams make informed decisions on deploying software security, establishing best practices to detect and remove security and privacy issues (including compliance analysis). It emphasizes including security testing as part of QA.\n\nQ: What is the purpose of the Post-Release Support (PRSA) phase of the SDL?\nA: To prepare for vulnerabilities identified after a product is released (in both managed and unmanaged codebases). Key stakeholders are identified, customer communication plans are established, and a process for handling newly discovered vulnerabilities is defined.\n\nQ: What is threat modeling and what mindset does it require?\nA: Using a repeatable model to identify vulnerabilities so developers can eliminate them. It requires thinking like an adversary to understand a threat and defend against it before it happens.\n\nQ: What role does NIST play in software security?\nA: The National Institute of Standards and Technology provides research, guidelines, standards, and tools for government and corporate information security, including SDL best practices and frameworks (e.g., the AI Risk Management Framework).\n\nQ: What should a completed threat model include?\nA: At minimum a diagram with an enumeration and description of its elements, plus a threat and risk analysis (the core of the model). For each mitigated threat it should also record the associated bug/defect number added to the work backlog, a short description of the software components, and the documentation stored in the team's document control system.\n\nQ: When should a software security assessment be performed, and what does it identify?\nA: In the earliest phases of a new development initiative. It identifies how critical the product is to customers, the required security objectives, any governing regulations/policies, and possible threats after deployment.\n\nQ: Why would an organization adapt an existing security reference framework instead of creating its own?\nA: Implementing security policies is difficult and may require negotiation with stakeholders and leadership. Adapting a proven, industry-accepted framework of tested SDL activities, deliverables, and methodologies avoids reinventing the wheel.",
+          "source": "text",
+          "addedAt": 1786422634512
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "d4870002",
+          "title": "D487 practice: SDL phases, STRIDE, PASTA & post-release",
+          "createdAt": 1786422634512,
+          "questions": [
+            {
+              "question": "In the SDL reference framework, which phase is sometimes called the 'discovery' phase?",
+              "options": [
+                "A2 – Architecture",
+                "A1 – Security Assessment",
+                "A4 – Design and Development (readiness)",
+                "A5 – Ship"
+              ],
+              "correctIndex": 1,
+              "explanation": "A1 (Security Assessment) is also called the discovery phase — the team identifies the product's risk profile and the SDL activities that will be needed. A2 centers on threat modeling, A4 on automated security testing readiness, and A5 on final pre-ship reviews."
+            },
+            {
+              "question": "The threat model is first prepared during which SDL phase?",
+              "options": [
+                "A1 – Security Assessment",
+                "A3 – Design and Development",
+                "A2 – Architecture",
+                "A4 – Design and Development (readiness)"
+              ],
+              "correctIndex": 2,
+              "explanation": "Threat modeling is the most important step of the Architecture (A2) phase, where security is viewed in terms of business risks with input from key stakeholders. A3 only updates the threat model if necessary."
+            },
+            {
+              "question": "What does a Privacy Impact Assessment (PIA) evaluate, and when is it initiated?",
+              "options": [
+                "Open-source license obligations; initiated at Ship (A5)",
+                "Runtime privacy defects found by dynamic analysis; initiated in A4",
+                "Customer privacy complaints; initiated post-release (PRSA1)",
+                "Privacy issues and a privacy impact rating for the PII the software handles; initiated in A1"
+              ],
+              "correctIndex": 3,
+              "explanation": "The PIA evaluates privacy issues and assigns a privacy impact rating related to the PII the software handles. It is initiated during A1 (Security Assessment) so privacy is addressed from the start rather than neglected."
+            },
+            {
+              "question": "Which statement correctly distinguishes static analysis from dynamic analysis?",
+              "options": [
+                "Static analysis examines source code without executing it; dynamic analysis tests the running application",
+                "Static analysis tests the running application; dynamic analysis examines the source code",
+                "Static analysis is always manual; dynamic analysis is always automated",
+                "Static analysis happens only after release; dynamic analysis happens during design"
+              ],
+              "correctIndex": 0,
+              "explanation": "Static analysis inspects source code before it is compiled — a scalable way to find issues early — while dynamic analysis finds issues that only appear at runtime. The A4 (readiness) phase uses automated static, dynamic, and fuzz testing tools."
+            },
+            {
+              "question": "Which set of activities belongs to the A5 (Ship) phase?",
+              "options": [
+                "Final policy compliance review, final vulnerability scan, pre-release penetration testing, open-source licensing review, and final security and privacy reviews",
+                "Discovery meeting, SDL project plan creation, and PIA initiation",
+                "Defining CIA business requirements and preparing the threat model",
+                "Creating test plan documentation and beginning static analysis"
+              ],
+              "correctIndex": 0,
+              "explanation": "A5 is the last phase before release and confirms the software is acceptable to ship. The other options describe A1 (discovery/PIA), A2 (requirements/threat model), and A3 (test plans/static analysis kickoff)."
+            },
+            {
+              "question": "In STRIDE, Tampering violates which security property?",
+              "options": [
+                "Authentication",
+                "Authorization",
+                "Integrity",
+                "Availability"
+              ],
+              "correctIndex": 2,
+              "explanation": "Tampering is unauthorized modification of data or code, in transit or at rest — a violation of Integrity. Spoofing violates Authentication, Elevation of Privilege violates Authorization, and Denial of Service violates Availability."
+            },
+            {
+              "question": "Which STRIDE threat violates non-repudiation?",
+              "options": [
+                "Repudiation",
+                "Spoofing",
+                "Information Disclosure",
+                "Denial of Service"
+              ],
+              "correctIndex": 0,
+              "explanation": "Repudiation is denying having performed an action with no way to prove otherwise — it undermines auditing and logging. Spoofing violates Authentication, Information Disclosure violates Confidentiality, and DoS violates Availability."
+            },
+            {
+              "question": "A normal user finds a way to perform admin-only actions. In STRIDE terms, this is…",
+              "options": [
+                "Spoofing, violating Authentication",
+                "Elevation of Privilege, violating Authorization",
+                "Information Disclosure, violating Confidentiality",
+                "Tampering, violating Integrity"
+              ],
+              "correctIndex": 1,
+              "explanation": "Gaining capabilities or access beyond what was granted (e.g., a normal user acting as admin) is Elevation of Privilege, which violates Authorization. Spoofing would be impersonating another identity, not exceeding your own permissions."
+            },
+            {
+              "question": "How does PASTA differ from threat modeling methods that only identify threats?",
+              "options": [
+                "It is a descriptive study of real-world security initiatives across many organizations",
+                "It focuses on the probability and business impact of threats, so teams prioritize those that matter",
+                "It replaces threat modeling entirely with automated fuzz testing",
+                "It applies only to web applications"
+              ],
+              "correctIndex": 1,
+              "explanation": "PASTA (Process for Attack Simulation and Threat Analysis) is a risk-centric, seven-stage methodology that aligns business objectives with technical requirements and weighs probability and impact — so effort goes to threats with real business impact. The 'descriptive study' option describes BSIMM."
+            },
+            {
+              "question": "In PASTA, decomposing the application to identify data flows, trust boundaries, and entry/exit points happens in…",
+              "options": [
+                "Stage 1 – Define the Objectives",
+                "Stage 4 – Threat Analysis",
+                "Stage 6 – Attack Modeling",
+                "Stage 3 – Application Decomposition"
+              ],
+              "correctIndex": 3,
+              "explanation": "Stage 3 (Application Decomposition) breaks the application down into assets, use cases, data flow diagrams, trust boundaries, actors, and entry/exit points. Stage 1 sets business objectives, Stage 4 analyzes the threat landscape, Stage 6 simulates attacks."
+            },
+            {
+              "question": "PASTA Stage 6 (Attack Modeling) involves…",
+              "options": [
+                "Quantifying business risk and recommending countermeasures",
+                "Correlating identified threats with existing CVEs and CWEs",
+                "Simulating attacks (e.g., attack trees) to validate how threats could exploit vulnerabilities",
+                "Defining the technical scope and dependencies to assess"
+              ],
+              "correctIndex": 2,
+              "explanation": "Stage 6 simulates attacks using techniques like attack trees and attack surface analysis to validate exploitability. Quantifying risk is Stage 7, CVE/CWE correlation is Stage 5, and technical scope is Stage 2."
+            },
+            {
+              "question": "After release, which team manages externally reported vulnerabilities, and how are issues prioritized?",
+              "options": [
+                "The QA team, prioritized by CWE category",
+                "The PSIRT, prioritized by severity using CVSS (plus environmental factors)",
+                "The SOC, prioritized by STRIDE classification",
+                "Software security champions, prioritized by SAMM maturity level"
+              ],
+              "correctIndex": 1,
+              "explanation": "PRSA1 (External Vulnerability Disclosure Response) is handled by the PSIRT — the Product Security Incident Response Team — which prioritizes issues by severity using the CVSS scoring system plus environmental factors, and discloses fixes via coordinated security bulletins."
+            },
+            {
+              "question": "Which best describes BSIMM?",
+              "options": [
+                "A prescriptive how-to guide telling developers exactly which security controls to implement",
+                "A certification program that products must pass before shipping",
+                "A penetration-testing methodology for web applications",
+                "A descriptive maturity model, built from studying real organizations, used to measure your program against industry peers"
+              ],
+              "correctIndex": 3,
+              "explanation": "BSIMM (Building Security In Maturity Model) is descriptive, not prescriptive — it reflects what real software security initiatives actually do, letting an organization see where it stands relative to peers. It's aimed at those who teach developers security (e.g., a Software Security Group), not at developers directly."
+            },
+            {
+              "question": "BSIMM's 12 practices are grouped under which four domains?",
+              "options": [
+                "Governance, Intelligence, SSDL Touchpoints, and Deployment",
+                "Assess, Design, Implement, and Verify",
+                "Plan, Do, Check, and Act",
+                "People, Process, Technology, and Compliance"
+              ],
+              "correctIndex": 0,
+              "explanation": "BSIMM organizes its 12 practices under Governance, Intelligence, SSDL (Secure Software Development Lifecycle) Touchpoints, and Deployment."
+            },
+            {
+              "question": "PRSA4 calls for an internal security review when…",
+              "options": [
+                "A customer requests an independent third-party audit",
+                "A product must obtain or maintain a post-release certification",
+                "Previously released products are combined into new bundles or deployed to new environments such as the cloud",
+                "Legacy or M&A code needs an architectural review"
+              ],
+              "correctIndex": 2,
+              "explanation": "PRSA4 is Internal Review for New Product Combinations or Cloud Deployments — new combinations and environments can introduce new risks. Third-party audits are PRSA2, certifications are PRSA3, and legacy/M&A reviews are PRSA5."
+            }
+          ],
+          "best": null
+        }
+      ],
+      "decks": [
+        {
+          "id": "d4870003",
+          "title": "D487 Anki deck – full review",
+          "createdAt": 1786422634512,
+          "cards": [
+            {
+              "front": "A1 activity: What is a Privacy Impact Assessment (PIA) and when is it initiated?",
+              "back": "The PIA is a process that evaluates the privacy issues and assigns a privacy impact rating related to the personally identifiable information (PII) the software handles. It is initiated during the A1 (Security Assessment) phase so privacy is addressed from the start rather than neglected."
+            },
+            {
+              "front": "A1 activity: What is the SDL project plan created during Security Assessment?",
+              "back": "The software security team creates an SDL project plan that lays out the security milestones, controls, and activities for the product and integrates them into the overall development project schedule, so security work is planned alongside (not separate from) normal development."
+            },
+            {
+              "front": "A1 activity: What is the purpose of the discovery (kick-off) meeting hosted by the software security team?",
+              "back": "It is a formalized kick-off meeting (in person or via live web conference) that ensures security is treated as a key element built into the SDLC. It gives attendees and stakeholders a chance to gauge shared understanding and awareness, identify all sources of security requirements (including relevant laws, regulations, and standards), and begin risk management planning."
+            },
+            {
+              "front": "A1 activity: Why is the software security team \"looped in early,\" and what benefit does this provide?",
+              "back": "Bringing the security team into the project early is the most cost-effective way to enable risk identification, planning, and mitigation. Early identification of vulnerabilities and misconfigurations lowers the cost of security controls, surfaces engineering challenges sooner, and lets developers plan security requirements and constraints into the project from the start."
+            },
+            {
+              "front": "A2 activity: How are business/security requirements defined during the Architecture phase?",
+              "back": "Business requirements are defined in terms of the security properties confidentiality, integrity, and availability (CIA). Needed privacy controls for creating, transmitting, and handling PII are also identified, along with SDL policy and other security/privacy compliance requirements."
+            },
+            {
+              "front": "A2 activity: What key deliverable is produced during the Architecture (A2) phase?",
+              "back": "A threat model is prepared during A2. At this stage security is viewed in terms of business risks, using inputs from the software security group and discussions with key stakeholders to identify threats and constraints before design work proceeds."
+            },
+            {
+              "front": "A3 activity: What security review and analysis activities happen in Design and Development (A3)?",
+              "back": "In A3 the team analyzes policy compliance, creates test plan documentation, updates the threat model if necessary, conducts a design security analysis and review, and performs a privacy implementation assessment. Static analysis of source code begins in this phase to catch issues early."
+            },
+            {
+              "front": "A4 activity: What is the difference between static and dynamic analysis, and where are they used in the SDL?",
+              "back": "Static analysis examines the source code before it is compiled (no execution), providing a scalable way to find issues early. Dynamic analysis tests the running application to find issues that appear at runtime. The A4 (readiness) phase uses automated static, dynamic, and fuzz testing tools to execute security test cases and enforce security practices efficiently."
+            },
+            {
+              "front": "A5 activity: What final testing and review activities occur before a product ships?",
+              "back": "Before shipping, A5 includes a final policy compliance review, a final vulnerability scan, pre-release penetration testing, an open-source licensing review, and the final security and privacy reviews, all confirming the software is secure enough to release."
+            },
+            {
+              "front": "A5 activity: What is the role of the final SDL policy compliance review at the Ship phase?",
+              "back": "SDL policy compliance covers every project with meaningful security and privacy risk and is analyzed and updated in each phase (A1-A4). In A5 the SDL policy is reviewed one final time to confirm it provides specific requirements appropriate to the product type, code type, and platform before release."
+            },
+            {
+              "front": "According to the reference framework, what are the top four environments in which you are likely to deploy your SDL?",
+              "back": "Agile, DevOps (and DevSecOps), Cloud, and Microservices/APIs. The book stresses that what matters is understanding what your specific implementation means for your SDL, not exactly how each methodology is implemented."
+            },
+            {
+              "front": "For whom is BSIMM primarily intended?",
+              "back": "It is aimed at the people responsible for teaching developers how to do proper software security (e.g., a Software Security Group), emphasizing security education and mentoring rather than policing developers for errors, rather than being a guide for developers themselves."
+            },
+            {
+              "front": "How does the V-Model relate to the Waterfall methodology?",
+              "back": "The V-Model follows Waterfall's sequential flow but turns back upward after the coding process, pairing each development stage with a corresponding testing stage."
+            },
+            {
+              "front": "How does the book recommend organizing (right-sizing) the software security group for post-release support?",
+              "back": "It recommends a matrixed structure: a core group of senior software security architects who have 'dotted-line' relationships with software security champions, who in turn work with software security evangelists, plus strong ties to the product managers of each Tier 1 product. This is a more cost-effective, efficient way to implement and operate the SDL with existing resources."
+            },
+            {
+              "front": "How is the BSIMM model organized?",
+              "back": "BSIMM is divided into 12 practices grouped under four domains: Governance, Intelligence, SSDL (Secure Software Development Lifecycle) Touchpoints, and Deployment."
+            },
+            {
+              "front": "In PRSA1 (External Vulnerability Disclosure Response), what team handles the process and what scoring system is used to prioritize issues?",
+              "back": "The PSIRT (Product Security Incident Response Team) handles it, managing investigation of publicly discovered vulnerabilities. Issues are prioritized by severity using the CVSS scoring system (plus environmental factors)."
+            },
+            {
+              "front": "In PRSA1, how does the PSIRT publicly disclose a resolved vulnerability, and what is expected of the discoverer meanwhile?",
+              "back": "Public disclosure is done via a coordinated 'security bulletin (SB)' published on the company's website. The discoverer is asked to maintain strict confidentiality until complete resolutions are available for customers and published."
+            },
+            {
+              "front": "In PRSA1, why is a single group as the focal point for customer security communications so important?",
+              "back": "A clearly defined single chain of communication (rather than multiple groups like support, sales, and infosec all talking to customers) prevents disclosure of unintended information, avoids panic, and reduces the risk of putting entire accounts at stake."
+            },
+            {
+              "front": "In a maturity model like SAMM or BSIMM, what is a security roadmap?",
+              "back": "A roadmap is a series of phases in which selected practices are each improved by one maturity level at a time. Organizations choose which practices to advance in each phase, iterating based on business drivers and risk tolerance, and adjust the roadmap after each phase based on what was actually accomplished."
+            },
+            {
+              "front": "List the five Post-Release Support Activities (PRSA1-PRSA5).",
+              "back": "PRSA1 = External Vulnerability Disclosure Response; PRSA2 = Third-Party Reviews; PRSA3 = Post-Release Certifications; PRSA4 = Internal Review for New Product Combinations or Cloud Deployments; PRSA5 = Security Architectural Reviews and Tool-Based Assessments of Current, Legacy, and M&A Products and Solutions."
+            },
+            {
+              "front": "Name four common software development methodologies covered in the course.",
+              "back": "Waterfall, V-Model, Agile, and Scrum."
+            },
+            {
+              "front": "PASTA - what is Stage 1?",
+              "back": "Stage 1: Define the Objectives - identify business objectives, security/compliance requirements, and perform a preliminary business impact analysis (BIA)."
+            },
+            {
+              "front": "PASTA - what is Stage 2?",
+              "back": "Stage 2: Define the Technical Scope - define the boundaries of the technical environment and the dependencies (infrastructure, application components, software, network) that must be assessed."
+            },
+            {
+              "front": "PASTA - what is Stage 3?",
+              "back": "Stage 3: Application Decomposition - decompose the application to identify assets, use cases, data flows (e.g., data flow diagrams), trust boundaries, actors, and entry/exit points."
+            },
+            {
+              "front": "PASTA - what is Stage 4?",
+              "back": "Stage 4: Threat Analysis - analyze the threat landscape using threat intelligence to identify relevant threats and attack scenarios targeting the application."
+            },
+            {
+              "front": "PASTA - what is Stage 5?",
+              "back": "Stage 5: Vulnerability and Weakness Analysis - correlate identified threats with existing vulnerabilities and weaknesses in the application and its assets (mapping to CVEs/CWEs)."
+            },
+            {
+              "front": "PASTA - what is Stage 6?",
+              "back": "Stage 6: Attack Modeling - simulate attacks (e.g., using attack trees/attack surface analysis) to validate how identified threats could exploit the vulnerabilities against the assets."
+            },
+            {
+              "front": "PASTA - what is Stage 7?",
+              "back": "Stage 7: Risk and Impact Analysis - quantify business risk and impact of validated attacks, then prioritize and recommend countermeasures/mitigations to reduce residual risk."
+            },
+            {
+              "front": "PRSA1's PSIRT function also covers what second post-release response area besides security vulnerabilities?",
+              "back": "Privacy issue response (section 8.2.2, Post-Release Privacy Response). The PSIRT function can be a shared responsibility covering responses to BOTH post-release security vulnerabilities and privacy issue discoveries."
+            },
+            {
+              "front": "STRIDE - what threat does 'D' represent, and what security property does it violate?",
+              "back": "D = Denial of Service (making a system or resource unavailable to legitimate users). It violates Availability."
+            },
+            {
+              "front": "STRIDE - what threat does 'E' represent, and what security property does it violate?",
+              "back": "E = Elevation of Privilege (gaining capabilities/access beyond what was granted, e.g., a normal user acting as admin). It violates Authorization."
+            },
+            {
+              "front": "STRIDE - what threat does 'I' represent, and what security property does it violate?",
+              "back": "I = Information Disclosure (exposing data to unauthorized parties). It violates Confidentiality."
+            },
+            {
+              "front": "STRIDE - what threat does 'R' represent, and what security property does it violate?",
+              "back": "R = Repudiation (denying having performed an action, with no way to prove otherwise). It violates Non-repudiation (undermines auditing/logging)."
+            },
+            {
+              "front": "STRIDE - what threat does 'S' represent, and what security property does it violate?",
+              "back": "S = Spoofing (impersonating someone or something else, e.g., faking identity/credentials). It violates Authentication."
+            },
+            {
+              "front": "STRIDE - what threat does 'T' represent, and what security property does it violate?",
+              "back": "T = Tampering (unauthorized modification of data or code, in transit or at rest). It violates Integrity."
+            },
+            {
+              "front": "Under PRSA5, why must legacy code receive the same testing and review rigor as the SDL?",
+              "back": "Legacy code often predates modern SDL security activities, so its architecture may hide unpredictable vulnerabilities. Applying full SDL rigor mitigates 'the unexpected' - critical when legacy software supports embedded critical systems like infrastructure, transportation, defense, medicine, and finance, where the impact of changes cannot otherwise be predicted."
+            },
+            {
+              "front": "What activities make up the A5 (Ship) phase of the SDL?",
+              "back": "A5 is the final phase before release. It includes the final policy compliance review, a final vulnerability scan, pre-release penetration testing, an open-source licensing review, and the final security and privacy reviews to confirm the software is acceptable to ship."
+            },
+            {
+              "front": "What activities occur during the Ship (A5) phase of the SDL?",
+              "back": "In the last phase before release, security teams perform policy compliance analysis, vulnerability scans, penetration testing, open-source licensing reviews, and a final security review and privacy review to determine whether the product is ready to ship."
+            },
+            {
+              "front": "What activities occur in the A3 (Design and Development) phase of the SDL?",
+              "back": "In A3 you analyze policy compliance, create the test plan documentation, update the threat model if needed, conduct a design security analysis and review, and perform a privacy implementation assessment. Static analysis of source code begins here (and continues into A4) to detect and remove issues early."
+            },
+            {
+              "front": "What are the Post-Release Support Activities (PRSA) in the SDL, and who typically handles them?",
+              "back": "PRSA are the security activities that continue after a product ships. Many are carried out by groups other than the software security group, but the book frames them as the responsibility of the centralized software security group. There are five: PRSA1-PRSA5."
+            },
+            {
+              "front": "What are the five phases of the SDL (A1-A5) in the reference framework's model?",
+              "back": "A1 = Security Assessment (discovery); A2 = Architecture; A3 = Design and Development; A4 = Design and Development (readiness); A5 = Ship. A post-release phase (PRSA1-5, Post-Release Support Activities) follows after the product ships."
+            },
+            {
+              "front": "What are the main activities within the A1 (Security Assessment) phase?",
+              "back": "The software security team is looped in early, hosts a discovery meeting, creates an SDL project plan, and initiates a Privacy Impact Assessment (PIA) plan. Together these establish the product risk profile and the security work needed for the rest of the SDL."
+            },
+            {
+              "front": "What are the main types of security test cases?",
+              "back": "Testing the box, vulnerability assessment and penetration testing, scanning, ongoing testing, and environment testing."
+            },
+            {
+              "front": "What are the two leading SDL maturity models the reference framework highlights?",
+              "back": "OWASP's Software Assurance Maturity Model (SAMM) and Synopsys's Building Security In Maturity Model (BSIMM). Both let an organization assess and grow the maturity of its software security program over time."
+            },
+            {
+              "front": "What do secure software requirements primarily focus on?",
+              "back": "The confidentiality, integrity, and availability (CIA) of information within the product. They are a subset of the functional business requirements."
+            },
+            {
+              "front": "What does PASTA stand for and what type of threat modeling methodology is it?",
+              "back": "PASTA = Process for Attack Simulation and Threat Analysis. It is a risk-centric, seven-stage threat modeling methodology that aligns business objectives with technical requirements while accounting for compliance and business impact."
+            },
+            {
+              "front": "What does the STRIDE threat model acronym stand for (all 6)?",
+              "back": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege. STRIDE is a threat classification model (originated at Microsoft) where each threat maps to a violated security property: Authentication, Integrity, Non-repudiation, Confidentiality, Availability, Authorization."
+            },
+            {
+              "front": "What does the software development life cycle (SDLC) provide in the context of software security?",
+              "back": "It standardizes security best practices across development, ensuring security is treated as an essential part of every phase rather than an afterthought."
+            },
+            {
+              "front": "What happens during the Architecture (A2) phase of the SDL, and what is its most important step?",
+              "back": "Security is examined in terms of business risks with input from the security team and key stakeholders. The most important step is threat modeling."
+            },
+            {
+              "front": "What happens in the A1 (Security Assessment) phase of the SDL, and what is it also called?",
+              "back": "A1 is the first SDL phase, sometimes called the discovery phase. The team identifies the product's risk profile and the SDL activities that will be needed, and creates an initial project outline of security milestones and controls that is integrated into the overall development schedule."
+            },
+            {
+              "front": "What happens in the A4 (Design and Development / readiness) phase, and how does it map to a typical SDLC?",
+              "back": "A4 maps to the 'readiness' phase of a typical SDLC. It continues policy compliance analysis and executes security test cases, relying on automated tools (static, dynamic, and fuzz testing) to enforce security practices efficiently. Static analysis inspects source code before compiling; dynamic analysis tests the running application."
+            },
+            {
+              "front": "What is BSIMM (Building Security In Maturity Model) and what is its purpose?",
+              "back": "BSIMM is a descriptive maturity model built from studying real-world software security initiatives across many organizations. It is not a how-to guide or a one-size-fits-all prescription; instead it lets an organization measure where it stands relative to industry peers and identify steps to improve its software security program."
+            },
+            {
+              "front": "What is BSIMM (Building Security In Maturity Model)?",
+              "back": "A descriptive security model based on studying real-world software security practices across many organizations, used to measure and compare an organization's software security initiative."
+            },
+            {
+              "front": "What is MITRE ATT&CK and how can it enhance threat modeling in the SDL?",
+              "back": "MITRE ATT&CK is a knowledge base of real-world adversary tactics and techniques (first released in 2015). In the SDL it supports vulnerability managers with detections and analytics, threat intelligence (a common language to structure and compare threats), adversary emulation and red teaming, and assessment and engineering decisions."
+            },
+            {
+              "front": "What is OWASP (Open Web Application Security Project)?",
+              "back": "A flexible, prescriptive framework and community that helps organizations build security into their software development process, offering guidance and resources for application security."
+            },
+            {
+              "front": "What is OWASP Zed Attack Proxy (ZAP)?",
+              "back": "One of the most commonly used open-source security testing tools, used to test web applications for vulnerabilities (e.g., request-response tampering, authentication scenarios, custom payloads)."
+            },
+            {
+              "front": "What is PRSA1?",
+              "back": "PRSA1 is External Vulnerability Disclosure Response - the process for receiving, triaging, and responding to security vulnerabilities reported by external parties (researchers, customers) after release."
+            },
+            {
+              "front": "What is PRSA2 (Third-Party Reviews) and why has it become the norm?",
+              "back": "PRSA2 is independent third-party assessment of post-release (or near-release) code. Customers increasingly request independent audits as visible proof that purchased/evaluated software is secure, since vulnerabilities have been tied to high-profile data breaches."
+            },
+            {
+              "front": "What is PRSA2?",
+              "back": "PRSA2 is Third-Party Reviews - having independent, external parties assess the security of the released software (for example, third-party security assessments or audits) to provide objective validation."
+            },
+            {
+              "front": "What is PRSA3?",
+              "back": "PRSA3 is Post-Release Certifications - managing security/privacy certifications (e.g., government, industry, or standards-based) that a product must obtain or maintain after release."
+            },
+            {
+              "front": "What is PRSA4?",
+              "back": "PRSA4 is Internal Review for New Product Combinations or Cloud Deployments - re-assessing security when previously released products are combined into new bundles/solutions or deployed in new environments such as the cloud, where new risks may emerge."
+            },
+            {
+              "front": "What is PRSA5?",
+              "back": "PRSA5 is Security Architectural Reviews and Tool-Based Assessments of Current, Legacy, and M&A Products and Solutions - applying architectural review and automated tooling to existing, legacy, and newly acquired (merger/acquisition) code."
+            },
+            {
+              "front": "What is STRIDE, and what are STRIDE-per-element and STRIDE-per-interaction?",
+              "back": "STRIDE is a threat modeling methodology where each letter represents a type of software threat, applied to a data flow diagram. STRIDE-per-element identifies threats for individual elements; STRIDE-per-interaction identifies threats for interactions between elements."
+            },
+            {
+              "front": "What is Scrum in Agile development?",
+              "back": "A popular, flexible Agile framework for holistic product development in which a team works as a unit toward a common goal, with defined Scrum roles and values."
+            },
+            {
+              "front": "What is the PASTA threat modeling methodology and how does it differ from other methods?",
+              "back": "PASTA (Process for Attack Simulation and Threat Analysis) is a seven-step, repeatable framework for identifying threats and planning countermeasures. Unlike methods focused only on identifying threats, PASTA focuses on the probability and impact of threats, so teams prioritize those with real business impact."
+            },
+            {
+              "front": "What is the Waterfall software development methodology?",
+              "back": "A sequential, step-by-step process for addressing an organization's requirements, where each phase is completed before the next begins."
+            },
+            {
+              "front": "What is the defense-in-depth principle in secure software design?",
+              "back": "Applying multiple, layered security controls throughout the entire SDLC so that if one control fails, others still protect the software. It is emphasized across all phases of development."
+            },
+            {
+              "front": "What is the difference between quality code and secure code?",
+              "back": "Quality code focuses on functioning correctly and reliably, while secure code focuses on protecting confidentiality, integrity, and availability by resisting misuse and attack. Code can be high quality yet insecure."
+            },
+            {
+              "front": "What is the difference between static and dynamic code analysis?",
+              "back": "Static code analysis examines source code without executing it, while dynamic code analysis tests the application while it is running. Introducing both early in a CI/CD pipeline helps developers find issues sooner."
+            },
+            {
+              "front": "What is the focus of the A2 (Architecture) phase of the SDL?",
+              "back": "In A2, security is brought into the SDLC so that all threats, requirements, and constraints on functionality and integration are considered. Business requirements are defined in terms of confidentiality, integrity, and availability; privacy controls for PII are discussed; and a threat model is prepared."
+            },
+            {
+              "front": "What is the goal of the Design and Development (A3/A4) phase of the SDL?",
+              "back": "To complete analysis and testing that lets teams make informed decisions on deploying software security, establishing best practices to detect and remove security and privacy issues (including compliance analysis). It emphasizes including security testing as part of QA."
+            },
+            {
+              "front": "What is the purpose of the Post-Release Support (PRSA) phase of the SDL?",
+              "back": "To prepare for vulnerabilities identified after a product is released (in both managed and unmanaged codebases). Key stakeholders are identified, customer communication plans are established, and a process for handling newly discovered vulnerabilities is defined."
+            },
+            {
+              "front": "What is threat modeling and what mindset does it require?",
+              "back": "Using a repeatable model to identify vulnerabilities so developers can eliminate them. It requires thinking like an adversary to understand a threat and defend against it before it happens."
+            },
+            {
+              "front": "What role does NIST play in software security?",
+              "back": "The National Institute of Standards and Technology provides research, guidelines, standards, and tools for government and corporate information security, including SDL best practices and frameworks (e.g., the AI Risk Management Framework)."
+            },
+            {
+              "front": "What should a completed threat model include?",
+              "back": "At minimum a diagram with an enumeration and description of its elements, plus a threat and risk analysis (the core of the model). For each mitigated threat it should also record the associated bug/defect number added to the work backlog, a short description of the software components, and the documentation stored in the team's document control system."
+            },
+            {
+              "front": "When should a software security assessment be performed, and what does it identify?",
+              "back": "In the earliest phases of a new development initiative. It identifies how critical the product is to customers, the required security objectives, any governing regulations/policies, and possible threats after deployment."
+            },
+            {
+              "front": "Why would an organization adapt an existing security reference framework instead of creating its own?",
+              "back": "Implementing security policies is difficult and may require negotiation with stakeholders and leadership. Adapting a proven, industry-accepted framework of tested SDL activities, deliverables, and methodologies avoids reinventing the wheel."
+            }
+          ]
+        }
+      ],
+      "stats": {
+        "quizzesTaken": 0,
+        "answered": 0,
+        "correct": 0
+      }
+    }
+  ],
+  "activeCourseId": "d4870000"
+}
