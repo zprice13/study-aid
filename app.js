@@ -150,7 +150,7 @@ async function callClaude({ system, user, schema }) {
   return JSON.parse(textBlock.text);
 }
 
-function buildGenPrompt(course, materials, count, difficulty, focus, kind) {
+function buildGenPrompt(course, materials, count, difficulty, focus, kind, avoid = []) {
   const sources = materials
     .map((m) => `<material title="${m.name.replace(/"/g, "'")}">\n${m.text}\n</material>`)
     .join("\n\n");
@@ -170,6 +170,10 @@ function buildGenPrompt(course, materials, count, difficulty, focus, kind) {
       ? `Create exactly ${count} multiple-choice questions. Each question must have exactly 4 options with exactly one correct answer. Make distractors plausible (common mistakes or related concepts), not obviously wrong. Vary which option index is correct. Every explanation should teach — say why the right answer is right and briefly why the tempting distractors are wrong.`
       : `Create exactly ${count} flashcards. Fronts should be terms, concepts, or short questions; backs should be concise, self-contained answers (1-3 sentences). Don't duplicate concepts across cards.`;
 
+  const avoidNote = avoid.length
+    ? `\nThe following items are already in this study set. Do NOT duplicate or closely paraphrase any of them — cover different facts, concepts, or angles from the materials:\n${avoid.map((a) => `- ${a}`).join("\n")}\n`
+    : "";
+
   return {
     system:
       "You are an expert tutor creating study materials for a university student. " +
@@ -178,7 +182,7 @@ function buildGenPrompt(course, materials, count, difficulty, focus, kind) {
     user:
       `Course: ${course.name}\n\n` +
       `Source materials:\n${sources}\n\n` +
-      `Task: ${kindNote}\n${difficultyNote}\n${focusNote}\n` +
+      `Task: ${kindNote}\n${difficultyNote}\n${focusNote}\n${avoidNote}` +
       `Also produce a short title describing what this set covers.`,
   };
 }
@@ -440,6 +444,55 @@ function setGenStatus(html, isError) {
   box.innerHTML = html;
 }
 
+/* Items per API call. One response can only hold so many tokens, so larger
+ * sets are built across multiple calls, each told what's already covered. */
+const GEN_BATCH_SIZE = 15;
+
+function autoItemCount(materials) {
+  const words = materials.reduce((sum, m) => sum + wordCount(m.text), 0);
+  // Roughly one item per ~80 words of source, within sane bounds.
+  return Math.max(10, Math.min(75, Math.round(words / 80)));
+}
+
+/* Generate up to `target` items of `kind`, batching API calls as needed.
+ * Returns {title, items, warning} — `warning` is set if a later batch failed
+ * after some items had already been collected (partial result). */
+async function generateSet(kind, target, course, materials, difficulty, focus) {
+  const label = kind === "quiz" ? "quiz questions" : "flashcards";
+  const schema = kind === "quiz" ? QUIZ_SCHEMA : FLASHCARD_SCHEMA;
+  const items = [];
+  let title = null;
+  let warning = null;
+
+  while (items.length < target) {
+    const n = Math.min(GEN_BATCH_SIZE, target - items.length);
+    setGenStatus(
+      `<span class="spinner"></span> Generating ${label}… ${items.length} of ${target} done. Larger sets take a few minutes.`
+    );
+    const avoid = items.map((it) => (kind === "quiz" ? it.question : it.front));
+    const { system, user } = buildGenPrompt(course, materials, n, difficulty, focus, kind, avoid);
+
+    let result;
+    try {
+      result = await callClaude({ system, user, schema });
+    } catch (e) {
+      if (items.length === 0) throw e; // nothing salvageable — surface the error
+      warning = e.message;
+      break; // keep what we have
+    }
+
+    if (!title && result.title) title = result.title;
+    const fresh =
+      kind === "quiz"
+        ? (result.questions || []).filter((q) => Array.isArray(q.options) && q.options.length === 4)
+        : (result.cards || []).filter((c) => c.front && c.back);
+    if (fresh.length === 0) break; // the material is exhausted
+    items.push(...fresh);
+  }
+
+  return { title, items: items.slice(0, target), warning };
+}
+
 async function handleGenerate() {
   const course = activeCourse();
   if (!course) return;
@@ -452,7 +505,8 @@ async function handleGenerate() {
   }
 
   const type = $("#genType").value;
-  const count = parseInt($("#genCount").value, 10);
+  const countRaw = $("#genCount").value;
+  const count = countRaw === "auto" ? autoItemCount(materials) : parseInt(countRaw, 10);
   const difficulty = $("#genDifficulty").value;
   const focus = $("#genFocus").value.trim();
   const kinds = type === "both" ? ["quiz", "flashcards"] : [type];
@@ -461,28 +515,27 @@ async function handleGenerate() {
   btn.disabled = true;
 
   try {
+    const warnings = [];
     for (const kind of kinds) {
-      const label = kind === "quiz" ? "quiz questions" : "flashcards";
-      setGenStatus(`<span class="spinner"></span> Generating ${count} ${label}… this can take a minute.`);
-      const { system, user } = buildGenPrompt(course, materials, count, difficulty, focus, kind);
-      const schema = kind === "quiz" ? QUIZ_SCHEMA : FLASHCARD_SCHEMA;
-      const result = await callClaude({ system, user, schema });
+      const { title, items, warning } = await generateSet(kind, count, course, materials, difficulty, focus);
+      if (items.length === 0) throw new Error("No usable items came back — please try again.");
+      if (warning) warnings.push(`saved ${items.length} of ${count} (a later batch failed: ${warning})`);
 
       if (kind === "quiz") {
-        const questions = (result.questions || []).filter((q) => Array.isArray(q.options) && q.options.length === 4);
-        if (questions.length === 0) throw new Error("No usable questions came back — please try again.");
-        course.quizzes.unshift({ id: uid(), title: result.title || "Quiz", createdAt: Date.now(), questions, best: null });
+        course.quizzes.unshift({ id: uid(), title: title || "Quiz", createdAt: Date.now(), questions: items, best: null });
       } else {
-        const cards = result.cards || [];
-        if (cards.length === 0) throw new Error("No usable flashcards came back — please try again.");
-        course.decks.unshift({ id: uid(), title: result.title || "Flashcards", createdAt: Date.now(), cards });
+        course.decks.unshift({ id: uid(), title: title || "Flashcards", createdAt: Date.now(), cards: items });
       }
       saveState();
     }
 
     renderCourse();
     const where = type === "both" ? "the Quizzes and Flashcards tabs" : type === "quiz" ? "the Quizzes tab" : "the Flashcards tab";
-    setGenStatus(`✅ Done! Find your new material in ${where}.`);
+    setGenStatus(
+      warnings.length
+        ? `⚠️ Partly done — ${warnings.join("; ")}. Find the results in ${where}.`
+        : `✅ Done! Find your new material in ${where}.`
+    );
   } catch (e) {
     setGenStatus(`⚠️ ${e.message}`, true);
     if (e.noKey) $("#settingsModal").showModal();

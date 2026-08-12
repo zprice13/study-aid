@@ -29,8 +29,10 @@ localStorage.
    files (text is extracted client-side via pdf.js), or paste notes directly.
 
 5. **Generate** — in the *Generate* tab, pick which materials to use, choose
-   quiz questions and/or flashcards, item count, difficulty, and an optional
-   topic focus, then hit ✨ Generate.
+   quiz questions and/or flashcards, item count (up to 75, or **Auto** to size
+   the set to your material), difficulty, and an optional topic focus, then hit
+   ✨ Generate. Large sets are built in batches of 15 behind the scenes, with
+   each batch told what's already covered so items don't repeat.
 
 6. **Study** —
    - *Quizzes*: questions are shuffled each attempt, with instant feedback and
