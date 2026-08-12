@@ -354,9 +354,181 @@ h1, h2, h3 { font-weight: 600; margin: 0; }
   max-width: 80vw;
 }
 
-/* ============ Responsive ============ */
+/* ============ Mobile app bar & drawer scrim ============ */
+/* Hidden on desktop — the sidebar stays static there. */
+.mobile-appbar { display: none; }
+.scrim { display: none; }
+
+/* ============ Responsive (mobile ≤760px) ============ */
 @media (max-width: 760px) {
-  .app { grid-template-columns: 1fr; }
-  .sidebar { border-right: none; border-bottom: 1px solid var(--line); }
-  .main { padding: 1rem; max-height: none; }
+  .app { display: block; min-height: 100vh; }
+
+  /* ---- Sticky top app bar ---- */
+  .mobile-appbar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    padding: 0.35rem 0.5rem;
+    padding-top: calc(0.35rem + env(safe-area-inset-top));
+    padding-left: calc(0.5rem + env(safe-area-inset-left));
+    padding-right: calc(0.5rem + env(safe-area-inset-right));
+  }
+  .appbar-title {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.05rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .appbar-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  /* ---- Sidebar becomes an off-canvas drawer ---- */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(84vw, 320px);
+    z-index: 60;
+    transform: translateX(-105%);
+    transition: transform 0.25s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: calc(1rem + env(safe-area-inset-top));
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    padding-left: calc(1rem + env(safe-area-inset-left));
+  }
+  body.drawer-open .sidebar {
+    transform: translateX(0);
+    box-shadow: 0 0 32px rgba(43, 38, 32, 0.35);
+  }
+  .scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(43, 38, 32, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  body.drawer-open .scrim { opacity: 1; pointer-events: auto; }
+  body.drawer-open { overflow: hidden; }
+
+  .main {
+    padding: 1rem;
+    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+    max-height: none;
+  }
+  .empty-state { height: 70vh; }
+
+  /* ---- iOS: inputs ≥16px so focus doesn't auto-zoom ---- */
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea { font-size: 16px !important; }
+
+  /* ---- Touch targets ≥44px ---- */
+  .btn, .btn-sm {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .course-item { min-height: 44px; }
+  .new-course-form input { min-height: 44px; }
+  .sidebar-footer .btn { flex: 1; }
+  .gen-material-picker label { min-height: 44px; }
+  .gen-material-picker input[type="checkbox"] { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* ---- Course header wraps gracefully ---- */
+  .course-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+  /* The app bar already shows the course name — don't repeat it. */
+  .course-header h2 { display: none; }
+  .course-header-actions { flex-wrap: wrap; }
+  .course-stats { flex: 1 1 100%; }
+
+  /* ---- Tab bar: one scrollable row, hidden scrollbar ---- */
+  .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-bottom: 1rem;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 44px;
+    padding: 0.6rem 0.85rem;
+  }
+
+  /* ---- Materials: compact dropzone ---- */
+  .dropzone { padding: 1rem 0.75rem; gap: 0.15rem; }
+  .dropzone-icon { font-size: 1.3rem; }
+
+  /* ---- Lists: let action buttons wrap under the title ---- */
+  .set-item, .material-item { flex-wrap: wrap; padding: 0.7rem 0.85rem; }
+  .set-info, .material-info { flex: 1 1 10rem; }
+
+  /* ---- Generate form: full width, tighter, stacked options ---- */
+  .gen-card { max-width: none; padding: 1rem; }
+  .gen-options { flex-direction: column; gap: 0.75rem; }
+  .gen-options label { width: 100%; }
+  .gen-options select { width: 100%; }
+  #generateBtn { width: 100%; }
+
+  /* ---- Quiz player ---- */
+  .question-card { padding: 1rem; }
+  .question-text { font-size: 1.1rem; }
+  .option { min-height: 44px; padding: 0.8rem 0.9rem; }
+
+  /* Player action rows: full-width, side-by-side, thumb-reachable */
+  .player-actions {
+    gap: 0.6rem;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .player-actions .btn { flex: 1 1 0; min-height: 48px; }
+
+  /* ---- Flashcards: taller card, comfortable reading ---- */
+  .flashcard { min-height: min(52vh, 460px); }
+  .flashcard-face { padding: 1.25rem; }
+  .flip-hint { margin-bottom: 0.75rem; }
+
+  /* ---- Modal & toast ---- */
+  .modal { width: calc(100vw - 2rem); }
+  .toast {
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    max-width: calc(100vw - 2rem);
+    width: max-content;
+    text-align: center;
+  }
 }

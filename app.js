@@ -264,6 +264,13 @@ function toast(msg) {
   toastTimer = setTimeout(() => (t.hidden = true), 3500);
 }
 
+/* Mobile off-canvas drawer (the sidebar; CSS makes this a no-op on desktop). */
+function setDrawer(open) {
+  document.body.classList.toggle("drawer-open", open);
+  const btn = $("#menuBtn");
+  if (btn) btn.setAttribute("aria-expanded", String(open));
+}
+
 function fmtDate(ts) {
   return new Date(ts).toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
@@ -299,6 +306,10 @@ function renderCourse() {
   const course = activeCourse();
   $("#emptyState").hidden = !!course;
   $("#courseView").hidden = !course;
+
+  const appbarTitle = $("#appbarTitle");
+  if (appbarTitle) appbarTitle.textContent = course ? course.name : "📚 Study Aid";
+
   if (!course) return;
 
   $("#courseTitle").textContent = course.name;
@@ -336,6 +347,7 @@ function addCourse(name) {
   state.courses.push(course);
   state.activeCourseId = course.id;
   saveState();
+  setDrawer(false);
   renderAll();
 }
 
@@ -343,6 +355,7 @@ function selectCourse(id) {
   state.activeCourseId = id;
   closePlayers();
   saveState();
+  setDrawer(false);
   renderAll();
 }
 
@@ -832,6 +845,19 @@ async function importData(file) {
  * ================================================================ */
 
 function init() {
+  // Mobile app bar & drawer
+  const menuBtn = $("#menuBtn");
+  const scrim = $("#scrim");
+  if (menuBtn) {
+    menuBtn.addEventListener("click", () => setDrawer(!document.body.classList.contains("drawer-open")));
+  }
+  if (scrim) scrim.addEventListener("click", () => setDrawer(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.body.classList.contains("drawer-open")) setDrawer(false);
+  });
+  const appbarSettingsBtn = $("#appbarSettingsBtn");
+  if (appbarSettingsBtn) appbarSettingsBtn.addEventListener("click", () => $("#settingsBtn").click());
+
   // Sidebar
   $("#newCourseForm").addEventListener("submit", (e) => {
     e.preventDefault();

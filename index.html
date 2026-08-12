@@ -16,6 +16,13 @@
   <script src="pwa.js" defer></script>
 </head>
 <body>
+  <!-- ======== Mobile app bar (hidden on desktop via CSS) ======== -->
+  <header class="mobile-appbar">
+    <button id="menuBtn" class="icon-btn appbar-btn" title="Courses" aria-label="Open course menu" aria-expanded="false">☰</button>
+    <span id="appbarTitle" class="appbar-title">📚 Study Aid</span>
+    <button id="appbarSettingsBtn" class="icon-btn appbar-btn" title="Settings" aria-label="Settings">⚙️</button>
+  </header>
+
   <div class="app">
     <!-- ======== Sidebar: courses ======== -->
     <aside class="sidebar">
@@ -144,6 +151,9 @@
       </div>
     </main>
   </div>
+
+  <!-- Backdrop for the mobile off-canvas drawer -->
+  <div id="scrim" class="scrim" aria-hidden="true"></div>
 
   <!-- ======== Settings modal ======== -->
   <dialog id="settingsModal" class="modal">
